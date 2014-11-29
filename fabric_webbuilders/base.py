@@ -37,8 +37,12 @@ class BuildTask(Task):
         if build_dir is not None:
             self.build_dir = build_dir
         elif self.build_dir is None:
-            default_build_dir = os.path.join(env.get('build_dir', ''), self.prefix)
-            local_build_dir = env.get('%s_build_dir' % self.prefix, default_build_dir)
+            default_build_dir = self.prefix
+            if os.environ.get('VIRTUAL_ENV'):
+                default_build_dir = os.environ.get('VIRTUAL_ENV')
+
+            global_build_dir = os.path.join(env.get('build_dir', ''), default_build_dir)
+            local_build_dir = env.get('%s_build_dir' % self.prefix, global_build_dir)
             self.build_dir = os.path.abspath(local_build_dir)
 
         if origin is not None:
