@@ -18,17 +18,17 @@ from __future__ import unicode_literals
 from fabric.api import local
 from fabric.state import env
 
-from fabric_webbuilders import BuildTask
-from fabric_webbuilders import GitMixin
+from fabric_webbuilders.base import BuildTask
+from fabric_webbuilders.base import GitMixin
 
 
-class BuildJquery(BuildTask, GitMixin):
+class BuildJqueryTask(BuildTask, GitMixin):
     prefix = 'jquery'
     default_origin = 'https://github.com/jquery/jquery.git'
 
     def __init__(self, origin=None, version=None, build_dir=None, dest_dir=None, excludes=None):
         self.excludes = excludes
-        super(BuildJquery, self).__init__(origin, version, build_dir, dest_dir)
+        super(BuildJqueryTask, self).__init__(origin, version, build_dir, dest_dir)
 
     def run(self, origin=None, version=None, build_dir=None, dest_dir=None, excludes=None):
         if excludes is not None:
@@ -36,7 +36,7 @@ class BuildJquery(BuildTask, GitMixin):
         elif self.excludes is None:
             self.excludes = env.get('%s_excludes' % self.prefix)
 
-        super(BuildJquery, self).run(origin, version, build_dir, dest_dir)
+        super(BuildJqueryTask, self).run(origin, version, build_dir, dest_dir)
 
     def build(self):
         local('npm install')  # install dependencies
