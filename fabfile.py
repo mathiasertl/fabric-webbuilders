@@ -15,8 +15,8 @@
 
 from __future__ import unicode_literals
 
-from fabric_webbuilders.jquery import BuildJqueryTask
-from fabric_webbuilders.bootstrap import BuildBootstrapTask
+from fabric_webbuilders import BuildJqueryTask
+from fabric_webbuilders import BuildBootstrapTask
 
 
 build_jquery = BuildJqueryTask()
