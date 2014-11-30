@@ -94,10 +94,26 @@ class GitMixin(VCSMixin):
         repo.remotes.origin.pull('master')
         return repo
 
+    def is_version_tag(self, tag, data):
+        if not data or not data.get('version'):
+            return False
+        return True
+
     def checkout(self, repo):
         if self.version == 'HEAD':
             print(green('Building %s-%s' % (self.prefix, self.version)))
             repo.git.checkout('master')
+        elif self.version and self.version.startswith('~'):
+            tags = sorted(repo.tags, key=lambda tag: tag.name, reverse=True)
+            for tag in tags:
+                parsed = self.tag_re.match(tag.name).groupdict()
+                if not self.is_version_tag(tag, parsed):
+                    continue
+                if parsed['version'].startswith(self.version[1:]):
+                    break
+
+            print(green('Building %s-%s' % (self.prefix, tag)))
+            repo.git.checkout(tag)
         elif self.version:
             print(green('Building %s-%s' % (self.prefix, self.version)))
             repo.git.checkout(self.version)

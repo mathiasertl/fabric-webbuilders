@@ -78,8 +78,10 @@ The following configuration options are avialable for all tasks:
   semantics as the default, e.g. a fork of the original repository.
 * ``version``: The version to build. By default the latest version found is build. 
 
-  For git-based tasks this can either be ``HEAD`` (which will build the current HEAD of the master
-  branch) or any treeish object (e.g.  a tag or branch found in the git-repository.
+  For git-based tasks this can be ``HEAD`` (which will build the current HEAD of the master
+  branch), any treeish object (e.g.  a tag or branch found in the git-repository) or a string
+  starting with ``~``, which will build the latest release mathing the version, e.g.
+  ``build_jquery:version=~1`` would build the latest jQuery 1.x version.
 * ``dest-dir``: Where to copy the built libraries after building.
 
 

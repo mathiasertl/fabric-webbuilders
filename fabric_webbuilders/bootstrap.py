@@ -31,6 +31,7 @@ from fabric_webbuilders.base import GitMixin
 class BuildBootstrapTask(BuildTask, GitMixin):
     prefix = 'bootstrap'
     default_origin = 'https://github.com/twbs/bootstrap.git'
+    tag_re = re.compile('v(?P<version>[0-9.]*)(-(?P<suffix>-.*))?')
 
     missing_variables = {
         '@zindex-navbar': '1000',

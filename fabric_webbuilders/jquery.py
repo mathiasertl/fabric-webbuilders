@@ -15,6 +15,8 @@
 
 from __future__ import unicode_literals
 
+import re
+
 from fabric.api import local
 from fabric.state import env
 
@@ -25,6 +27,7 @@ from fabric_webbuilders.base import GitMixin
 class BuildJqueryTask(BuildTask, GitMixin):
     prefix = 'jquery'
     default_origin = 'https://github.com/jquery/jquery.git'
+    tag_re = re.compile('(?P<version>[0-9.]*)(-(?P<suffix>-.*))?')
 
     def __init__(self, origin=None, version=None, build_dir=None, dest_dir=None, excludes=None):
         self.excludes = excludes
