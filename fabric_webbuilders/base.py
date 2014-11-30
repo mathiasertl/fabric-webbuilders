@@ -96,10 +96,10 @@ class GitMixin(VCSMixin):
 
     def checkout(self, repo):
         if self.version == 'HEAD':
-            print(green('Building jquery-%s' % self.version))
+            print(green('Building %s-%s' % (self.prefix, self.version)))
             repo.git.checkout('master')
         elif self.version:
-            print(green('Building jquery-%s' % self.version))
+            print(green('Building %s-%s' % (self.prefix, self.version)))
             repo.git.checkout(self.version)
         else:
             tags = sorted(repo.tags, key=lambda tag: tag.name, reverse=True)
@@ -107,5 +107,5 @@ class GitMixin(VCSMixin):
                 if '-' not in tag.name:
                     break
 
-            print(green('Building jquery-%s' % tag))
+            print(green('Building %s-%s' % (self.prefix, tag)))
             repo.git.checkout(tag)
