@@ -17,6 +17,8 @@ from __future__ import unicode_literals
 
 import os
 
+from distutils.version import LooseVersion
+
 from git import Repo
 
 from fabric.colors import green
@@ -56,7 +58,7 @@ class BuildTask(Task):
             self.version = version
         elif self.version is None:
             # env['version'] doesn't make much sense, but here for consistency non-the-less
-            self.version = env.get('%s_version' % self.version, env.get('version'))
+            self.version = env.get('%s_version' % self.version)
 
         if dest_dir is not None:
             self.dest_dir = dest_dir
@@ -94,23 +96,30 @@ class GitMixin(VCSMixin):
         repo.remotes.origin.pull('master')
         return repo
 
-    def is_version_tag(self, tag, data):
-        if not data or not data.get('version'):
+    def is_version_tag(self, tag, match):
+        if not match or not match.get('version'):
             return False
         return True
+
+    def tag_sortkey(self, tag, match):
+        obj = tag.object
+        if hasattr(tag.object, 'object'):
+            obj = obj.object
+
+        return LooseVersion(match['version']), obj.authored_date
+
+    def get_tags(self, repo):
+        tags = [(t, self.tag_re.match(t.name).groupdict()) for t in repo.tags]
+        tags = filter(lambda t: self.is_version_tag(*t), tags)
+        return sorted(tags, key=lambda t: self.tag_sortkey(*t), reverse=True)
 
     def checkout(self, repo):
         if self.version == 'HEAD':
             print(green('Building %s-%s' % (self.prefix, self.version)))
             repo.git.checkout('master')
         elif self.version and self.version.startswith('~'):
-            tags = sorted(repo.tags, key=lambda tag: tag.name, reverse=True)
-            for tag in tags:
-                parsed = self.tag_re.match(tag.name).groupdict()
-                if not self.is_version_tag(tag, parsed):
-                    continue
-                if parsed['version'].startswith(self.version[1:]):
-                    break
+            tags = self.get_tags(repo)
+            tag = filter(lambda t: t[1]['version'].startswith(self.version[1:]), tags)[0][0]
 
             print(green('Building %s-%s' % (self.prefix, tag)))
             repo.git.checkout(tag)
@@ -118,10 +127,6 @@ class GitMixin(VCSMixin):
             print(green('Building %s-%s' % (self.prefix, self.version)))
             repo.git.checkout(self.version)
         else:
-            tags = sorted(repo.tags, key=lambda tag: tag.name, reverse=True)
-            for tag in tags:
-                if '-' not in tag.name:
-                    break
-
+            tag = self.get_tags(repo)[0][0]
             print(green('Building %s-%s' % (self.prefix, tag)))
             repo.git.checkout(tag)
