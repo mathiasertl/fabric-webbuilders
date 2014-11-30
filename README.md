@@ -7,13 +7,13 @@ customized up-to-date versions of various HTML/JavaScript/CSS libraries.
 Quickstart
 ----------
 
-1. Install fabric-webbuilders
+1. Install fabric-webbuilders:
 
    ```
    pip install fabric-webbuilders
    ```
 
-2. Add tasks to your fabfile.py
+2. Add tasks to your ``fabfile.py``:
 
    ```
    from fabric_webbuilders import BuildJqueryTask, BuildBootstrapTask
