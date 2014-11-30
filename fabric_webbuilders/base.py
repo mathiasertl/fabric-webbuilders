@@ -48,12 +48,15 @@ class BuildTask(Task):
         if origin is not None:
             self.origin = origin
         elif self.origin is None:
-            self.origin = env.get('%s_origin' % self.prefix, self.default_origin)
+            # env['origin'] doesn't make much sense, but here for consistency non-the-less
+            default_origin = env.get('origin', self.default_origin)
+            self.origin = env.get('%s_origin' % self.prefix, default_origin)
 
         if version is not None:
             self.version = version
         elif self.version is None:
-            self.version = env.get('%s_version' % self.version)
+            # env['version'] doesn't make much sense, but here for consistency non-the-less
+            self.version = env.get('%s_version' % self.version, env.get('version'))
 
         if dest_dir is not None:
             self.dest_dir = dest_dir
