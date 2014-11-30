@@ -82,6 +82,8 @@ The following configuration options are avialable for all tasks:
   branch), any treeish object (e.g.  a tag or branch found in the git-repository) or a string
   starting with ``~``, which will build the latest release mathing the version, e.g.
   ``build_jquery:version=~1`` would build the latest jQuery 1.x version.
+
+  Note that ``env['version']`` is ignored because it's populated by fabric.
 * ``dest-dir``: Where to copy the built libraries after building.
 
 
