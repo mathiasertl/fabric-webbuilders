@@ -106,7 +106,9 @@ Bootstrap with ``grunt dist``.
 
 The Gruntfile unfortunately doesn't allow much automatic customization (or it's at least not
 documented) so if you pass a ``config.json`` with the ``config`` parameter, the task dynamically
-rewrites ``less/variables.less`` and ``less/bootstrap.less`` and removes any unwanted javascript.
+rewrites ``less/variables.less`` and ``less/bootstrap.less`` and removes any unwanted javascript
+(as
+[recommended](http://stackoverflow.com/questions/25389975/grunt-does-not-load-config-json-to-build-bootstrap)).
 This works for some common cases I've tested but might break in some cases. Please don't be shy to
 file an issue.
 
