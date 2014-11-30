@@ -64,13 +64,13 @@ fab build_jquery:build_dir=build/  # overrides env and task constructor
 The following configuration options are avialable for all tasks:
 
 * ``build_dir``: The build-directory where the libraries are downloaded and build. The default is
-  ``./<library>`` or ``$(VIRTUALENV_DIR)/build/<library>`` inside a virtualenv. Note that
+  ``./<library>/`` or ``$(VIRTUALENV_DIR)/build/<library>/`` inside a virtualenv. Note that
   ``env['build_dir']`` should not contain a library name, e.g. this would both build jquery in
-  ``build/jquery``:
+  ``build/jquery/``:
 
   ```python
-  env['build_dir'] = 'build'
-  env['jquery_build_dir'] = 'build/jquery'
+  env['build_dir'] = 'build/'
+  env['jquery_build_dir'] = 'build/jquery/'
   ```
 
 * ``origin``: The default origin to download the source from. For git-based tasks (jQuery and
