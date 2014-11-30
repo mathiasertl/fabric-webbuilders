@@ -49,16 +49,16 @@ from fabric_webbuilders import BuildJqueryTask
 # global build_dir for all libraries:
 env['build_dir'] = 'build/'
 # just for jquery, takes precedence over above option:
-env['jquery_build_dir'] = 'build/'
+env['jquery_build_dir'] = 'build/jquery/'
 
 # overrides any env variables:
-build_jquery = BuildJquery_task(build_dir='build/')
+build_jquery = BuildJquery_task(build_dir='build/jquery/')
 ```
 
 and then executing:
 
 ```
-fab build_jquery:build_dir=build/  # overrides env and task constructor
+fab build_jquery:build_dir=build/jquery/  # overrides env and task constructor
 ```
 
 The following configuration options are avialable for all tasks:
