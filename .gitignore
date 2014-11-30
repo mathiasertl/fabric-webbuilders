@@ -1,7 +1,9 @@
 *.py[co]
 *.sw[po]
+*.egg-info
 /bin/
 /build/
+/dist/
 /include/
 /lib/
 /local/
