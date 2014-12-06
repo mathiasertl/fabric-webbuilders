@@ -211,6 +211,7 @@ ChangeLog
 ### 0.2
 
 * Fix ``dest_dir`` parameter for bootstrap.
+* Add tasks to minify JavaScript and CSS.
 
 ### 0.1 (2014-11-30)
 
