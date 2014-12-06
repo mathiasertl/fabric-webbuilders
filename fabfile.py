@@ -29,7 +29,7 @@ minify_css = MinifyCSSTask(dest='minified.css', files=(
         'patterns': [
             '*.css',
             '!*.min.css',
-            '!excluded_subdir/',
+            '!/excluded_subdir/',
         ],
     }
 ))
