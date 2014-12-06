@@ -15,21 +15,37 @@
 
 from __future__ import unicode_literals
 
+import os
+
 from fabric_webbuilders import BuildJqueryTask
 from fabric_webbuilders import BuildBootstrapTask
 from fabric_webbuilders import MinifyCSSTask
+from fabric_webbuilders import MinifyJSTask
 
 
 build_jquery = BuildJqueryTask()
 build_bootstrap = BuildBootstrapTask()
-minify_css = MinifyCSSTask(dest='minified.css', files=(
-    'test.css',
+minify_css = MinifyCSSTask(dest=os.path.join('test', 'output.min.css'), files=(
+    os.path.join('test', 'custom.css'),
+    os.path.join('test', 'gone.css'),
     {
-        'src_dir': 'cssmin_test',
+        'src_dir': os.path.join('test', 'dir'),
         'patterns': [
             '*.css',
             '!*.min.css',
-            '!/excluded_subdir/',
+            '!%sexcluded%s' % (os.sep, os.sep, ),
+        ],
+    }
+))
+minify_js = MinifyJSTask(dest=os.path.join('test', 'output.min.js'), files=(
+    os.path.join('test', 'custom.js'),
+    os.path.join('test', 'gone.js'),
+    {
+        'src_dir': os.path.join('test', 'dir'),
+        'patterns': [
+            '*.js',
+            '!*.min.js',
+            '!%sexcluded%s' % (os.sep, os.sep, ),
         ],
     }
 ))
