@@ -199,7 +199,10 @@ tasks constructor or on the command-line. All tasks share three command-line par
 
 ### MinifyJSTask
 
-Todo.
+**Requires:** ``uglify-js``
+
+``fabric_webbuilders.MinifyJSTask`` minifys JavaScript files using
+[UglifyJS2](https://github.com/mishoo/UglifyJS2)
 
 
 ChangeLog
