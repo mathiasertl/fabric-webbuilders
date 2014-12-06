@@ -8,4 +8,6 @@
 /lib/
 /local/
 /node_modules/
+/test/output.min.css
+/test/output.min.js
 /share/
