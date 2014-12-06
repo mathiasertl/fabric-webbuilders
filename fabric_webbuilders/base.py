@@ -15,16 +15,26 @@
 
 from __future__ import unicode_literals
 
+import fnmatch
 import os
+import sys
 
 from distutils.version import LooseVersion
 
 from git import Repo
 
+from fabric.colors import yellow
 from fabric.colors import green
 from fabric.context_managers import lcd
 from fabric.state import env
 from fabric.tasks import Task
+
+
+PY3 = sys.version_info[0] == 3
+if PY3 is True:
+    string_types = (str, )
+else:
+    string_types = (str, unicode, )
 
 
 class BuildTask(Task):
@@ -130,3 +140,52 @@ class GitMixin(VCSMixin):
             tag = self.get_tags(repo)[0][0]
             print(green('Building %s-%s' % (self.prefix, tag)))
             repo.git.checkout(tag)
+
+
+class MinifyTask(Task):
+    def __init__(self, files, dest):
+        self.files = files
+        self.dest = dest
+
+    def get_files(self):
+        files = []
+        for source in self.files:
+            if isinstance(source, string_types):
+                if os.path.exists(source):
+                    files.append(source)
+                else:
+                    print(yellow('Warning: %s does not exist.' % source))
+            else:
+                # interpret dict
+                src_dir = os.path.abspath(source.get('src_dir', '.'))
+                patterns = source.get('patterns', '*.%s' % self.default_suffix)
+
+                for root, dirnames, filenames in os.walk(src_dir):
+                    print('Inspect %s' % os.path.relpath(root, src_dir))
+                    for pattern in patterns:
+                        if not pattern.startswith('!'):
+                            filenames = fnmatch.filter(filenames, pattern)
+                        elif pattern.endswith(os.sep):  # exclude subdir
+                            abs_dirnames = [os.path.join(root, d) for d in dirnames]
+
+                            # two cases: !foobar/ and !/foobar/a
+                            if pattern.startswith('!%s' % os.sep):
+                                dirpattern = os.path.join(src_dir, pattern[2:-1])
+                            else:
+                                dirpattern = '*%s%s' % (os.sep, pattern[1:-1])
+
+                            filtered = fnmatch.filter(abs_dirnames, dirpattern)
+                            for dirname in [os.path.basename(d) for d in filtered]:
+                                dirnames.remove(dirname)
+                        else:  # exclude filename patterns
+                            filtered = fnmatch.filter(filenames, pattern[1:])
+                            filenames = [name for name in filenames if name not in filtered]
+
+                    # append filenames
+                    files += [os.path.join(root, name) for name in filenames]
+
+        return files
+
+    def run(self):
+        files = self.get_files()
+        self.minify(files, self.dest)
