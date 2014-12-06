@@ -17,7 +17,19 @@ from __future__ import unicode_literals
 
 from fabric_webbuilders import BuildJqueryTask
 from fabric_webbuilders import BuildBootstrapTask
+from fabric_webbuilders import MinifyCSSTask
 
 
 build_jquery = BuildJqueryTask()
 build_bootstrap = BuildBootstrapTask()
+minify_css = MinifyCSSTask(dest='minified.css', files=(
+    'test.css',
+    {
+        'src_dir': 'cssmin_test',
+        'patterns': [
+            '*.css',
+            '!*.min.css',
+            '!excluded_subdir/',
+        ],
+    }
+))
