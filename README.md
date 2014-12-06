@@ -162,14 +162,21 @@ tasks constructor or on the command-line. All tasks share three command-line par
     'verbose': '',  # Adds "--verbose" to the command-line
     'whatever': 'yes',  # Adds "--whatever yes" to the command-line
     '-xyz': 'value',  # Adds "xyz value" to the command-line
-    '----xyz': 'value',  # Adds "---xyz value" to the command-line (first - is stripped)
+    '----xyz': 'value',  # Adds "---xyz value" to the command-line (1st - stripped)
   })
+  ```
+
+  The same can be given via the command-line:
+
+  ```
+  fab minify_css:d=,verbose=,whatever=yes,-xyz=value,----xyz=value
   ```
 
 
 ### Minify CSS
 
 **Requires:** clean-css
+
 ``fabric_webbuilders.MinifyCSSTask`` minifies CSS files using
 [clean-css](https://github.com/jakubpawlowicz/clean-css).
 
