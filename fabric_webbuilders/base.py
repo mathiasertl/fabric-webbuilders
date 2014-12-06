@@ -197,7 +197,7 @@ class MinifyTask(Task):
             if len(option) == 1:
                 option_str = '-%s' % option
             elif option.startswith('-'):
-                option_str = option
+                option_str = option[1:]
             else:
                 option_str = '--%s' % option
 
