@@ -24,8 +24,8 @@ requires = [
 
 setup(
     name='fabric-webbuilders',
-    version=str('0.1'),  # py2 requires str not uniquote
-    description='Build customized and up-to-date versions of HTML/JS/CSS libraries.',
+    version=str('0.2'),  # py2 requires str not uniquote
+    description='Build customized and up-to-date versions of HTML/JS/CSS libraries and minify them.',
     author='Mathias Ertl',
     author_email='mati@er.tl',
     platforms='any',
@@ -55,7 +55,8 @@ setup(
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    long_description="""Build customized and up-to-date versions of various popular HTML/Javascript/CSS
-libraries. Currently supported are `JQuery <http://jquery.com/>`_ and
-`Bootstrap <http://getbootstrap.com/>`_."""
+    long_description="""Fabric tasks to build customized and up-to-date
+versions of various popular HTML/Javascript/CSS libraries. Currently supported
+are `JQuery <http://jquery.com/>`_ and `Bootstrap
+<http://getbootstrap.com/>`_. Additional tasks to minify/concat your JS and CSS files."""
 )
