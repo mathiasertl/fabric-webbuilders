@@ -18,6 +18,7 @@ from __future__ import unicode_literals
 import json
 import os
 import re
+import shutil
 
 from collections import OrderedDict
 
@@ -97,3 +98,19 @@ class BuildBootstrapTask(BuildTask, GitMixin):
 
         local('npm install')  # install dependencies
         local('grunt dist')
+
+        # copy to dest_dir
+        if self.dest_dir is not None:
+            print('dest-dir: %s' % self.dest_dir)
+            base_src_dir = os.path.join(self.build_dir, 'dist')
+            for root, dirs, files in os.walk(base_src_dir):
+                relpath = os.path.relpath(root, base_src_dir)
+                dest_dir = os.path.join(self.dest_dir, relpath)
+                if not os.path.exists(dest_dir):
+                    os.makedirs(dest_dir)
+
+                for filename in files:
+                    src = os.path.join(root, filename)
+                    dst = os.path.join(dest_dir, filename)
+                    print('cp %s %s' % (src, dst))
+                    shutil.copy(src, dst)
