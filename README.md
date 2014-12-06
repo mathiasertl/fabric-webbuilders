@@ -140,13 +140,31 @@ tasks constructor or on the command-line. All tasks share three command-line par
   Elements of the list can either be a simple string, in which case the file is used verbatim. If
   an element is a dictionary, it can contains a ``src_dir`` (default: ``.``) and a list of
   patterns (default: ``*.<pattern>``, e.g. ``*.css`` for CSS minification). patterns are applied
-  sequentially, using Pythons
+  sequentially using Pythons
   [fnmatch](https://docs.python.org/2/library/fnmatch.html#fnmatch.fnmatch) function. Patterns
   starting with a ``!`` exclude files matching it. Patterns that end with
-  [os.sep](https://docs.python.org/2/library/os.html#os.sep) are considered skipped directories, if
-  the directory starts with ``os.sep``, only top-level directories are considered. See below for an
+  [os.sep](https://docs.python.org/2/library/os.html#os.sep) can be used to skip directories, if
+  the directory starts with ``os.sep``, only top-level directories are skipped. See below for an
   example.
-* ``options``:
+* ``verbose``: If a string starting with ``y``, output files that will be minified. Only useable
+  via the command-line.
+* ``options``: All other keyword arguments passed via the command-line are passed to the underlying
+  tool. Must be a dictionary if passed via the constructor. By default, options starting with a
+  ``-`` are passed with the first ``-`` stripped, single-letter options are prepended with a ``-``,
+  other options are prepended with ``--``. If a non-empty string is passed as value, it is appended
+  to the option string. Example:
+
+  ```python
+  from fabric_webbuilders import MinifyCSSTask
+  
+  minify_css = MinifyCSSTask(files=['output.css'], dest=minify.css, options = {
+    'd': '',  # Adds "-d" to the command-line
+    'verbose': '',  # Adds "--verbose" to the command-line
+    'whatever': 'yes',  # Adds "--whatever yes" to the command-line
+    '-xyz': 'value',  # Adds "xyz value" to the command-line
+    '----xyz': 'value',  # Adds "---xyz value" to the command-line (first - is stripped)
+  })
+  ```
 
 
 ### Minify CSS
