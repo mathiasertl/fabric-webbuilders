@@ -208,8 +208,10 @@ class MinifyTask(Task):
         return ' '.join(option_list)
 
 
-    def run(self, verbose='n', **options):
+    def run(self, dest=None, verbose='n', **options):
         self.options.update(options)
+        if dest is not None:
+            self.dest = dest
         verbose = verbose.lower().strip().startswith('y')
 
         files = self.get_files()
