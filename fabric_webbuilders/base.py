@@ -161,7 +161,6 @@ class MinifyTask(Task):
                 patterns = source.get('patterns', '*.%s' % self.default_suffix)
 
                 for root, dirnames, filenames in os.walk(src_dir):
-                    print('Inspect %s' % os.path.relpath(root, src_dir))
                     for pattern in patterns:
                         if not pattern.startswith('!'):
                             filenames = fnmatch.filter(filenames, pattern)
@@ -186,6 +185,12 @@ class MinifyTask(Task):
 
         return files
 
-    def run(self):
+    def run(self, verbose='n'):
+        verbose = verbose.lower().strip().startswith('y')
+
         files = self.get_files()
+        if verbose is True:
+            print(green('Minifying files:'))
+            for filename in files:
+                print('  %s' % filename)
         self.minify(files, self.dest)
