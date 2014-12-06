@@ -144,8 +144,25 @@ tasks constructor or on the command-line. All tasks share three command-line par
   [fnmatch](https://docs.python.org/2/library/fnmatch.html#fnmatch.fnmatch) function. Patterns
   starting with a ``!`` exclude files matching it. Patterns that end with
   [os.sep](https://docs.python.org/2/library/os.html#os.sep) can be used to skip directories, if
-  the directory starts with ``os.sep``, only top-level directories are skipped. See below for an
-  example.
+  the directory starts with ``os.sep``, only top-level directories are skipped. Example:
+
+  ```python
+  from fabric_webbuilders import MinifyCSSTask
+  
+  minify_css = MinifyCSSTask(dest='minified.css', files=[
+    'custom.css',  # custom.css in the current directory
+    {  
+        'src_dir': 'static/dir1',
+        # all *.css files in static/dir1, excluding *.min.css files.
+        'patterns': [
+            '*.css',  # all files ending with '.css'
+            '!*.min.css',  # but exclude .min.css files
+            '!subdir/',  # skip any directory called 'subdir'
+            '!/subdir?/',  # skip any 'subdirA', 'subdirB' etc. at the root-level
+        ],
+    },
+  ])
+  ```
 * ``verbose``: If a string starting with ``y``, output files that will be minified. Only useable
   via the command-line.
 * ``options``: All other keyword arguments passed via the command-line are passed to the underlying
@@ -157,7 +174,7 @@ tasks constructor or on the command-line. All tasks share three command-line par
   ```python
   from fabric_webbuilders import MinifyCSSTask
   
-  minify_css = MinifyCSSTask(files=['output.css'], dest=minify.css, options = {
+  minify_css = MinifyCSSTask(files=['output.css'], dest=minified.css, options={
     'd': '',  # Adds "-d" to the command-line
     'verbose': '',  # Adds "--verbose" to the command-line
     'whatever': 'yes',  # Adds "--whatever yes" to the command-line
