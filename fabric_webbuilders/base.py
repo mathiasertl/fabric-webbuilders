@@ -143,9 +143,15 @@ class GitMixin(VCSMixin):
 
 
 class MinifyTask(Task):
-    def __init__(self, files, dest):
+    param_sep = ' '
+
+    def __init__(self, files, dest, options=None):
         self.files = files
         self.dest = dest
+        if options is None:
+            self.options = {}
+        else:
+            self.options = options
 
     def get_files(self):
         files = []
@@ -185,7 +191,25 @@ class MinifyTask(Task):
 
         return files
 
-    def run(self, verbose='n'):
+    def get_options(self):
+        option_list = []
+        for option, value in self.options.items():
+            if len(option) == 1:
+                option_str = '-%s' % option
+            elif option.startswith('-'):
+                option_str = option
+            else:
+                option_str = '--%s' % option
+
+            if value:
+                option_str = '%s%s%s' % (option_str, self.param_sep, value)
+
+            option_list.append(option_str)
+        return ' '.join(option_list)
+
+
+    def run(self, verbose='n', **options):
+        self.options.update(options)
         verbose = verbose.lower().strip().startswith('y')
 
         files = self.get_files()
