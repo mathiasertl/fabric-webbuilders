@@ -126,9 +126,34 @@ Additional options:
 Minification tasks
 ------------------
 
-### MinifyCSSTask
+Minification tasks try to minimize the size of files (e.g. by removing unnecessary spaces,
+comments, etc.) and concatenate them to one single file that can be used in production
+environments.
+
+Minification tasks do not use the ``env`` dictionary, so you can configure them only using the
+tasks constructor or on the command-line. All tasks share three command-line parameters:
+
+* ``dest``: The destination filename.
+* ``files``: A list of files to minify. Due to the complexity of the parameter this can only be
+  given on the command line.
+  
+  Elements of the list can either be a simple string, in which case the file is used verbatim. If
+  an element is a dictionary, it can contains a ``src_dir`` (default: ``.``) and a list of
+  patterns (default: ``*.<pattern>``, e.g. ``*.css`` for CSS minification). patterns are applied
+  sequentially, using Pythons
+  [fnmatch](https://docs.python.org/2/library/fnmatch.html#fnmatch.fnmatch) function. Patterns
+  starting with a ``!`` exclude files matching it. Patterns that end with
+  [os.sep](https://docs.python.org/2/library/os.html#os.sep) are considered skipped directories, if
+  the directory starts with ``os.sep``, only top-level directories are considered. See below for an
+  example.
+* ``options``:
+
+
+### Minify CSS
 
 **Requires:** clean-css
+``fabric_webbuilders.MinifyCSSTask`` minifies CSS files using
+[clean-css](https://github.com/jakubpawlowicz/clean-css).
 
 ### MinifyJSTask
 
