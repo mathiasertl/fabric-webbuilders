@@ -197,12 +197,12 @@ tasks constructor or on the command-line. All tasks share three command-line par
 ``fabric_webbuilders.MinifyCSSTask`` minifies CSS files using
 [clean-css](https://github.com/jakubpawlowicz/clean-css).
 
-### MinifyJSTask
+### Minify JavaScript
 
 **Requires:** ``uglify-js``
 
 ``fabric_webbuilders.MinifyJSTask`` minifys JavaScript files using
-[UglifyJS2](https://github.com/mishoo/UglifyJS2)
+[UglifyJS2](https://github.com/mishoo/UglifyJS2).
 
 
 ChangeLog
