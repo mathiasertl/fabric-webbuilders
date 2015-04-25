@@ -34,14 +34,6 @@ class BuildBootstrapTask(BuildTask, GitMixin):
     default_origin = 'https://github.com/twbs/bootstrap.git'
     tag_re = re.compile('v(?P<version>[0-9.]*)(-(?P<suffix>-.*))?')
 
-    missing_variables = {
-        '@zindex-navbar': '1000',
-        '@zindex-dropdown': '1000',
-        '@zindex-popover': '1060',
-        '@zindex-tooltip': '1070',
-        '@zindex-navbar-fixed': '1030',
-        '@zindex-modal': '1040',
-    }
     # these less-variables are not included in config.json but are required:
     mandatory_less = ['mixins.less', 'normalize.less', 'utilities.less',
                       'variables.less', 'scaffolding.less']
@@ -65,13 +57,9 @@ class BuildBootstrapTask(BuildTask, GitMixin):
                 config = json.load(fp, object_pairs_hook=OrderedDict)
 
             # overwrite variables
-            with open(os.path.join(self.build_dir, 'less', 'variables.less'), 'w') as fp:
-                for key, value in config['vars'].items():
-                    fp.write('%s: %s;\n' % (key, value))
-
-                # add some variables not included in config.json
-                for key, value in self.missing_variables.items():
-                    if key not in config['vars']:
+            if config['vars']:
+                with open(os.path.join(self.build_dir, 'less', 'variables.less'), 'w') as fp:
+                    for key, value in config['vars'].items():
                         fp.write('%s: %s;\n' % (key, value))
 
             files = [name for name in os.listdir(os.path.join(self.build_dir, 'js'))
