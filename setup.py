@@ -18,8 +18,8 @@ from __future__ import unicode_literals
 from setuptools import setup
 
 requires = [
-    'Fabric>=1.10.0',
-    'GitPython>=0.3.2.1',
+    'Fabric>=1.10.1',
+    'GitPython>=1.0.0',
 ]
 
 setup(
