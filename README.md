@@ -210,6 +210,7 @@ ChangeLog
 
 ### 0.3
 
+* Append jquery's `node_modules/.bin` path when running `grunt dist`.
 * Depend on Fabric3 instead of Fabric.
 * Update GitPython dependency, do not list pip-tools in requirements.txt.
 
