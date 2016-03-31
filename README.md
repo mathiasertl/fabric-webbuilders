@@ -81,7 +81,7 @@ The following configuration options are avialable for all tasks:
 
   For git-based tasks this can be ``HEAD`` (which will build the current HEAD of the master
   branch), any treeish object (e.g.  a tag or branch found in the git-repository) or a string
-  starting with ``~``, which will build the latest release mathing the version, e.g.
+  starting with ``~``, which will build the latest release matching the version, e.g.
   ``build_jquery:version=~1`` would build the latest jQuery 1.x version.
 
   Note that ``env['version']`` is ignored because it's populated by fabric.
