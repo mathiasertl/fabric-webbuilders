@@ -210,7 +210,7 @@ ChangeLog
 
 ### 0.3
 
-* Append jquery's `node_modules/.bin` path when running `grunt dist`.
+* Append `node_modules/.bin` path when running `grunt dist` for jQuery and Bootstrap.
 * Make release compatible with Python3.
 * Do not depend on any particular version of Fabric, so you can use
   [Fabric3](https://github.com/mathiasertl/fabric/).
