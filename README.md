@@ -208,6 +208,11 @@ tasks constructor or on the command-line. All tasks share three command-line par
 ChangeLog
 ---------
 
+### 0.3
+
+* Depend on Fabric3 instead of Fabric.
+* Update GitPython dependency, do not list pip-tools in requirements.txt.
+
 ### 0.2
 
 * Fix ``dest_dir`` parameter for bootstrap.

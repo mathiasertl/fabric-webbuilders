@@ -18,13 +18,13 @@ from __future__ import unicode_literals
 from setuptools import setup
 
 requires = [
-    'Fabric>=1.10.0',
-    'GitPython>=0.3.2.1',
+    'Fabric3>=1.10.2.post3',
+    'GitPython>=1.0.2',
 ]
 
 setup(
     name='fabric-webbuilders',
-    version=str('0.2'),  # py2 requires str not uniquote
+    version=str('0.2'),  # py2 requires str not unicode
     description='Build customized and up-to-date versions of HTML/JS/CSS libraries and minify them.',
     author='Mathias Ertl',
     author_email='mati@er.tl',
