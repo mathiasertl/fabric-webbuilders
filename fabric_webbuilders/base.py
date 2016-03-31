@@ -129,7 +129,7 @@ class GitMixin(VCSMixin):
             repo.git.checkout('master')
         elif self.version and self.version.startswith('~'):
             tags = self.get_tags(repo)
-            tag = filter(lambda t: t[1]['version'].startswith(self.version[1:]), tags)[0][0]
+            tag = list(filter(lambda t: t[1]['version'].startswith(self.version[1:]), tags))[0][0]
 
             print(green('Building %s-%s' % (self.prefix, tag)))
             repo.git.checkout(tag)
