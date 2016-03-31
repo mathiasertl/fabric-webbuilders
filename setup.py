@@ -18,7 +18,6 @@ from __future__ import unicode_literals
 from setuptools import setup
 
 requires = [
-    'Fabric3>=1.10.2.post3',
     'GitPython>=1.0.2',
 ]
 
