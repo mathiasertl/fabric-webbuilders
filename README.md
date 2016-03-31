@@ -135,7 +135,7 @@ tasks constructor or on the command-line. All tasks share three command-line par
 
 * ``dest``: The destination filename.
 * ``files``: A list of files to minify. Due to the complexity of the parameter this can only be
-  given on the command line.
+  given as a constructor argument.
   
   Elements of the list can either be a simple string, in which case the file is used verbatim. If
   an element is a dictionary, it can contains a ``src_dir`` (default: ``.``) and a list of
