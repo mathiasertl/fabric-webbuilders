@@ -224,7 +224,7 @@ tasks constructor or on the command-line. All tasks share three command-line par
 ChangeLog
 ---------
 
-### 0.3
+### 0.3 (2016-04-24)
 
 * Tasks for building jQuery and Bootstrap now build with the git repository as the true
   working directory and that directories `node_modules/.bin` in the path. As a result, no longer
