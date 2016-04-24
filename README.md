@@ -94,6 +94,12 @@ jQuery
 
 **Requires:** git, npm, grunt (if ``excludes`` are given), bower (jQuery <= 2.1.1)
 
+```
+sudo apt-get install npm
+sudo ln -s /usr/bin/nodejs /usr/local/bin/node
+npm install grunt
+```
+
 ``fabric_webbuilders.BuildJqueryTask`` clones/updates the official git repository and builds jQuery
 with ``npm run build`` or with ``grunt custom:<excludes>`` if excludes are given.
 
@@ -106,6 +112,13 @@ Bootstrap
 ---------
 
 **Requires:** git, npm, grunt
+
+```
+sudo apt-get install npm
+sudo ln -s /usr/bin/nodejs /usr/local/bin/node
+npm install grunt
+```
+
 
 ``fabric_webbuilders.BuildBootstrap`` clones/updates the official git repository and builds
 Bootstrap with ``grunt dist``.
