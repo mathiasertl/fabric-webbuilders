@@ -23,7 +23,7 @@ requires = [
 
 setup(
     name='fabric-webbuilders',
-    version=str('0.2'),  # py2 requires str not unicode
+    version=str('0.3'),  # py2 requires str not unicode
     description='Build customized and up-to-date versions of HTML/JS/CSS libraries and minify them.',
     author='Mathias Ertl',
     author_email='mati@er.tl',
@@ -50,6 +50,7 @@ setup(
         "Programming Language :: Python :: 3.2",
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Software Development :: Libraries :: Python Modules",
