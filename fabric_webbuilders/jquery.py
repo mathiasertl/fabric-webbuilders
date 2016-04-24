@@ -22,9 +22,10 @@ from fabric.state import env
 
 from fabric_webbuilders.base import BuildTask
 from fabric_webbuilders.base import GitMixin
+from fabric_webbuilders.base import NPMMixin
 
 
-class BuildJqueryTask(BuildTask, GitMixin):
+class BuildJqueryTask(NPMMixin, BuildTask, GitMixin):
     prefix = 'jquery'
     default_origin = 'https://github.com/jquery/jquery.git'
     tag_re = re.compile('(?P<version>[0-9.]*)(-(?P<suffix>-.*))?')

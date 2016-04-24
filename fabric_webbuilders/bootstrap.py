@@ -27,9 +27,10 @@ from fabric.state import env
 
 from fabric_webbuilders.base import BuildTask
 from fabric_webbuilders.base import GitMixin
+from fabric_webbuilders.base import NPMMixin
 
 
-class BuildBootstrapTask(BuildTask, GitMixin):
+class BuildBootstrapTask(NPMMixin, BuildTask, GitMixin):
     prefix = 'bootstrap'
     default_origin = 'https://github.com/twbs/bootstrap.git'
     tag_re = re.compile('v(?P<version>[0-9.]*)(-(?P<suffix>-.*))?')
@@ -51,6 +52,7 @@ class BuildBootstrapTask(BuildTask, GitMixin):
         super(BuildBootstrapTask, self).run(origin, version, build_dir, dest_dir)
 
     def build(self):
+
         if self.config is not None and os.path.exists(self.config):
             # load config
             with open(self.config, 'r') as fp:
@@ -85,6 +87,7 @@ class BuildBootstrapTask(BuildTask, GitMixin):
                     fp.write('@import "%s";\n' % include)
 
         local('npm install')  # install dependencies
+        local('npm install grunt-cli')  # not installed by dependencies
         local('grunt dist')
 
         # copy to dest_dir
