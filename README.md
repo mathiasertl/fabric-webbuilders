@@ -29,7 +29,22 @@ Quickstart
    build_bootstrap = BuildBootstrapTask()
    ```
 
-3. Start building the latest versions of jQuery and Bootstrap:
+3. Make sure you have npm installed, e.g. on Debian/Ubuntu, do:
+
+   ```
+   sudo apt-get install npm
+
+   # required on most Debian/Ubuntu systems
+   sudo ln -s /usr/bin/nodejs /usr/local/bin/node
+   ```
+
+5. If you want to run the minification tasks, install clean-css and uglify-js:
+
+   ```
+   npm install clean-css uglify-js
+   ```
+
+6. Start building the latest versions of jQuery and Bootstrap:
 
    ```
    fab build_jquery build_bootstrap
