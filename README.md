@@ -226,8 +226,11 @@ ChangeLog
 
 ### 0.3
 
-* Append `node_modules/.bin` path when running `grunt dist` for jQuery and Bootstrap.
-* Make release compatible with Python3.
+* Tasks for building jQuery and Bootstrap now build with the git repository as the true
+  working directory and that directories `node_modules/.bin` in the path. As a result, no longer
+  have to locally install npm packages or take care of any PATH issues.
+* Minification tasks add ``node_modules/.bin`` to the path as well.
+* Python3 compatability fixes.
 * Do not depend on any particular version of Fabric, so you can use
   [Fabric3](https://github.com/mathiasertl/fabric/).
 * Update GitPython dependency, do not list pip-tools in requirements.txt.
