@@ -217,7 +217,7 @@ ChangeLog
   [Fabric3](https://github.com/mathiasertl/fabric/).
 * Update GitPython dependency, do not list pip-tools in requirements.txt.
 
-### 0.2
+### 0.2 (2014-12-06)
 
 * Fix ``dest_dir`` parameter for bootstrap.
 * Add tasks to minify JavaScript and CSS.
