@@ -25,7 +25,7 @@ from git import Repo
 
 from fabric.colors import yellow
 from fabric.colors import green
-from fabric.context_managers import lcd
+from fabric.context_managers import path
 from fabric.state import env
 from fabric.tasks import Task
 
@@ -78,8 +78,13 @@ class BuildTask(Task):
             self.dest_dir = os.path.abspath(self.dest_dir)
 
         self.download()
-        with lcd(self.build_dir):
+        old_cwd = os.getcwd()
+
+        try:
+            os.chdir(self.build_dir)
             self.build()
+        finally:
+            os.chdir(old_cwd)
 
 
 class VCSMixin(object):
@@ -140,6 +145,19 @@ class GitMixin(VCSMixin):
             tag = self.get_tags(repo)[0][0]
             print(green('Building %s-%s' % (self.prefix, tag)))
             repo.git.checkout(tag)
+
+
+class NPMMixin(object):
+    def __init__(self, *args, **kwargs):
+        def path_wrapper(orig):
+            def wrapped():
+                node_path = os.path.join(os.getcwd(), 'node_modules', '.bin')
+                with path(node_path):
+                    orig()
+            return wrapped
+
+        super(NPMMixin, self).__init__(*args, **kwargs)
+        self.build = path_wrapper(self.build)
 
 
 class MinifyTask(Task):
