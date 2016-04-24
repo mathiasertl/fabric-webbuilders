@@ -1,10 +1,11 @@
 fabric-webbuilders
 ==================
 
-**fabric-webbuilders** is a collection of [Fabric](http://www.fabfile.org/) tasks to easily build
-customized up-to-date versions of various HTML/JavaScript/CSS libraries. Currently supported are
-[jQuery](http://jquery.com/) and [Bootstrap](http://getbootstrap.com/). It also provides tasks to
-[minify](#minification-tasks) CSS and JavaScript.
+**fabric-webbuilders** is a collection of
+[Fabric](http://www.fabfile.org/)/[Fabric3](https://github.com/mathiasertl/Fabric) tasks to easily
+build customized up-to-date versions of various HTML/JavaScript/CSS libraries. Currently supported
+are [jQuery](http://jquery.com/) and [Bootstrap](http://getbootstrap.com/). It also provides tasks
+to [minify](#minification-tasks) CSS and JavaScript.
 
 The fabfile tasks in this package are just a frontend to the "build from source" instructions of
 the respective packages. This means that any command-line requirements for building the libraries
