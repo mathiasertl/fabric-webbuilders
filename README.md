@@ -97,7 +97,7 @@ jQuery
 ```
 sudo apt-get install npm
 sudo ln -s /usr/bin/nodejs /usr/local/bin/node
-npm install grunt
+npm install -g grunt-cli
 ```
 
 ``fabric_webbuilders.BuildJqueryTask`` clones/updates the official git repository and builds jQuery
@@ -116,7 +116,7 @@ Bootstrap
 ```
 sudo apt-get install npm
 sudo ln -s /usr/bin/nodejs /usr/local/bin/node
-npm install grunt
+npm install -g grunt-cli
 ```
 
 
