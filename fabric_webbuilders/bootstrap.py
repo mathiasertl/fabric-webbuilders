@@ -23,7 +23,6 @@ import shutil
 from collections import OrderedDict
 
 from fabric.api import local
-from fabric.context_managers import path
 from fabric.state import env
 
 from fabric_webbuilders.base import BuildTask
@@ -85,10 +84,8 @@ class BuildBootstrapTask(BuildTask, GitMixin):
                 for include in includes:
                     fp.write('@import "%s";\n' % include)
 
-        node_bin = os.path.abspath(os.path.join(self.build_dir, 'node_modules', '.bin'))
         local('npm install')  # install dependencies
-        with path(node_bin):
-            local('grunt dist')
+        local('grunt dist')
 
         # copy to dest_dir
         if self.dest_dir is not None:

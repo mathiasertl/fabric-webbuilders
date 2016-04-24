@@ -15,11 +15,9 @@
 
 from __future__ import unicode_literals
 
-import os
 import re
 
 from fabric.api import local
-from fabric.context_managers import path
 from fabric.state import env
 
 from fabric_webbuilders.base import BuildTask
@@ -53,7 +51,5 @@ class BuildJqueryTask(BuildTask, GitMixin):
             local('npm run build')
 
         # copy to custom dist dir
-        node_bin = os.path.abspath(os.path.join(self.build_dir, 'node_modules', '.bin'))
         if self.dest_dir is not None:
-            with path(node_bin):
-                local('grunt dist:%s' % self.dest_dir)
+            local('grunt dist:%s' % self.dest_dir)
