@@ -81,7 +81,7 @@ The following configuration options are avialable for all tasks:
 
   For git-based tasks this can be ``HEAD`` (which will build the current HEAD of the master
   branch), any treeish object (e.g.  a tag or branch found in the git-repository) or a string
-  starting with ``~``, which will build the latest release mathing the version, e.g.
+  starting with ``~``, which will build the latest release matching the version, e.g.
   ``build_jquery:version=~1`` would build the latest jQuery 1.x version.
 
   Note that ``env['version']`` is ignored because it's populated by fabric.
@@ -135,7 +135,7 @@ tasks constructor or on the command-line. All tasks share three command-line par
 
 * ``dest``: The destination filename.
 * ``files``: A list of files to minify. Due to the complexity of the parameter this can only be
-  given on the command line.
+  given as a constructor argument.
   
   Elements of the list can either be a simple string, in which case the file is used verbatim. If
   an element is a dictionary, it can contains a ``src_dir`` (default: ``.``) and a list of
@@ -207,6 +207,14 @@ tasks constructor or on the command-line. All tasks share three command-line par
 
 ChangeLog
 ---------
+
+### 0.3
+
+* Append `node_modules/.bin` path when running `grunt dist` for jQuery and Bootstrap.
+* Make release compatible with Python3.
+* Do not depend on any particular version of Fabric, so you can use
+  [Fabric3](https://github.com/mathiasertl/fabric/).
+* Update GitPython dependency, do not list pip-tools in requirements.txt.
 
 ### 0.2
 
