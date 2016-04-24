@@ -237,4 +237,7 @@ class MinifyTask(Task):
             print(green('Minifying files:'))
             for filename in files:
                 print('  %s' % filename)
-        self.minify(files, self.dest)
+
+        node_path = os.path.join(os.getcwd(), 'node_modules', '.bin')
+        with path(node_path):
+            self.minify(files, self.dest)
